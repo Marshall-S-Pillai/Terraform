@@ -1,0 +1,34 @@
+name: Terraform Destroy
+
+on:
+  push:
+    branches:
+      - destroy # Trigger the destroy process on pushing to the 'destroy' branch
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Terraform
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.4.0
+
+      # Step 3: Initialize Terraform
+      - name: Initialize Terraform
+        run: terraform init
+
+      # Step 4: Validate Terraform files
+      - name: Validate Terraform files
+        run: terraform validate
+
+      # Step 5: Perform Terraform destroy
+      - name: Terraform Destroy
+        env:
+          TF_VAR_example_variable: ${{ secrets.TF_VAR_EXAMPLE_VARIABLE }} # Replace with your secret variables
+        run: terraform destroy -auto-approve
