@@ -3,7 +3,7 @@ name: Terraform Destroy
 on:
   push:
     branches:
-      - destroy # Trigger the workflow on pushing to the 'destroy' branch
+      - main # Trigger the workflow on pushing to the 'destroy' branch
 
 jobs:
   terraform-destroy:
