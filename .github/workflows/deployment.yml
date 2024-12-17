@@ -1,16 +1,16 @@
-name: Terraform Deployment
+name: Terraform Destroy
 
 on:
   push:
     branches:
-      - main # Trigger the workflow on pushing to the 'main' branch
+      - destroy # Trigger the workflow on pushing to the 'destroy' branch
 
 jobs:
-  terraform:
+  terraform-destroy:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout repository
-      - name: Checkout repository 
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       # Step 2: Set up Terraform
@@ -31,14 +31,6 @@ jobs:
       - name: Initialize Terraform
         run: terraform init
 
-      # Step 5: Validate Terraform files
-      - name: Validate Terraform files
-        run: terraform validate
-
-      # Step 6: Plan Terraform deployment
-      - name: Plan Terraform deployment
-        run: terraform plan
-
-      # Step 7: Apply Terraform configuration
-      - name: Apply Terraform configuration
-        run: terraform apply -auto-approve
+      # Step 5: Destroy Terraform resources
+      - name: Destroy Terraform resources
+        run: terraform destroy -auto-approve
